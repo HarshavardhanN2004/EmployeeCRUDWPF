@@ -1,0 +1,192 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="EmployeeCRUD.MainWindow"
+
+        Title="Employee Management"
+
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Background="#EEF2F7">
+
+    <Grid Margin="25">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="white" CornerRadius="15" Padding="25" Margin="0,0,0,20" BorderBrush="#D9E2EC"
+                BorderThickness="1">
+
+            <StackPanel>
+                <TextBlock Text="Employee Management System"  FontSize="34"  FontWeight="Bold"  Foreground="#102A43"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Manage employee records efficiently using Add, Update, Delete and Search operations."
+                           FontSize="16" Foreground="#486581" TextAlignment="Center" Margin="0,10,0,0"/>
+
+                <Border Background="#F7FAFC" CornerRadius="10" Padding="20" Margin="0,25,0,0" BorderBrush="#E2E8F0"
+                        BorderThickness="1">
+
+                    <StackPanel>
+
+                        <TextBlock Text="Project Overview" FontSize="22" FontWeight="Bold"
+                                   Foreground="#1F2933"  Margin="0,0,0,15"/>
+
+                        <TextBlock TextWrapping="Wrap" FontSize="15" Foreground="#52606D" LineHeight="28"><Run Text="This project is developed using WPF and C# with SQL Server database connectivity. The Employee Management System helps users manage employee details in an organized manner. Users can add new employees, update employee information, delete employee records, search employees by name, and refresh the employee list instantly. This project demonstrates CRUD operations, database connectivity, and modern UI design in .NET applications."/></TextBlock>
+
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+
+        </Border>
+
+        <Border Grid.Row="1" Background="#0F766E" CornerRadius="15"  Padding="10"  Margin="0,0,0,20" BorderBrush="#D9E2EC"
+                BorderThickness="1">
+
+            <Menu Background="#0F766E" BorderThickness="0"  FontSize="16"  FontWeight="Bold"  Foreground="White"  Height="40">
+
+                <Menu.Resources>
+
+                    <Style TargetType="{x:Type MenuItem}">
+
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="Foreground" Value="#1E293B"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Padding" Value="10,5"/>
+
+                        <Style.Triggers>
+
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter Property="Background" Value="#DBEAFE"/>
+                                <Setter Property="Foreground" Value="#1D4ED8"/>
+                            </Trigger>
+
+                        </Style.Triggers>
+
+                    </Style>
+
+                </Menu.Resources>
+
+
+                <MenuItem Header="Edit" Padding="15,8" >
+
+                    <MenuItem Header="Add Employee" 
+                      Click="OpenAddForm_Click"/>
+
+                    <MenuItem Header="Update Employee"
+                      Click="OpenUpdate_Click"/>
+
+                    <MenuItem Header="Delete Employee"
+                      Click="OpenDelete_Click"/>
+
+                    <Separator/>
+
+                    <MenuItem Header="Exit"
+                      Click="Exit_Click"/>
+
+                </MenuItem>
+
+                <MenuItem Header="Search" Padding="15,8">
+
+                    <MenuItem Header="Search Employee"
+                      Click="OpenSearch_Click"/>
+
+                </MenuItem>
+
+                <MenuItem Header="View" Padding="15,8">
+
+                    <MenuItem Header="Refresh Data"
+                      Click="Refresh_Click"/>
+
+                </MenuItem>
+
+                <MenuItem Header="Salary">
+                    <MenuItem Header="Insert Salary"
+                               Click="InsertSalary_Click"/>
+                    <MenuItem Header="Generate Salary Slip"
+                               Click="GenerateSalarySlip_Click"/>
+                    <MenuItem Header="Salary By Department"
+                               Click="SalaryByDepartment_Click"/>
+                </MenuItem>
+
+                <MenuItem Header="Monthly Report"  
+                          Click="MonthlyReport_Click"></MenuItem>
+
+                <MenuItem Header="Department Report"
+                          Click="DepartmentReport_Click"></MenuItem>
+
+            </Menu>
+
+        </Border>
+
+        <Border Grid.Row="2" Background="White" CornerRadius="15" Padding="20" BorderBrush="#D9E2EC"
+                BorderThickness="1">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Employee Records" Grid.Row="0" FontSize="24" FontWeight="Bold"
+               Foreground="#102A43" Margin="0,0,0,20"/>
+
+                <DataGrid x:Name="dataGrid"  Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+          FontSize="14"  RowHeight="38" HeadersVisibility="Column" GridLinesVisibility="Horizontal" AlternatingRowBackground="#F8FAFC"
+          Background="White" BorderThickness="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+          MouseDoubleClick="dataGrid_MouseDoubleClick">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="80"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="180"/>
+                        <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="80"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding Department}" Width="200"/>
+                        <DataGridTextColumn Header="Joining Date" Binding="{Binding JoiningDate}" Width="150"/>
+                        <DataGridTextColumn Header="Salary" Binding="{Binding Salary}" Width="150"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+
+                            <Setter Property="Background" Value="#2563EB"/>
+                            <Setter Property="Foreground" Value="White"/>
+
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontStyle" Value="Italic"/>
+
+                            <Setter Property="Height" Value="45"/>
+
+                            <Setter Property="HorizontalContentAlignment"  Value="Center"/>
+
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Foreground" Value="#102A43"/>
+
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+
+                            <Setter Property="Padding" Value="8"/>
+
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                </DataGrid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
